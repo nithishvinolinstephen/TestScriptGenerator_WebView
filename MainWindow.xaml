@@ -1,0 +1,62 @@
+﻿<Window x:Class="TestScriptGeneratorTool.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestScriptGeneratorTool"
+        xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+        mc:Ignorable="d"
+        Title="Test Automation Script Generator" Height="900" Width="1400"
+        WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Toolbar -->
+        <Border Grid.Row="0" Background="#F5F5F5" Padding="10" BorderBrush="#DDD" BorderThickness="0,0,0,1">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="URL:" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                <TextBox x:Name="UrlTextBox" Width="400" Height="30" Margin="0,0,10,0" Padding="5"/>
+                <Button x:Name="NavigateButton" Content="Navigate" Width="80" Height="30" Margin="0,0,20,0" Click="NavigateButton_Click"/>
+                
+                <Separator Width="1" Background="#CCC" Margin="0,5,20,5"/>
+                
+                <Button x:Name="SelectElementButton" Content="Select Element" Width="100" Height="30" Margin="0,0,10,0" Click="SelectElementButton_Click"/>
+                <Button x:Name="ClearSelectionButton" Content="Clear" Width="70" Height="30" Margin="0,0,20,0" Click="ClearSelectionButton_Click"/>
+                
+                <TextBlock x:Name="StatusTextBlock" VerticalAlignment="Center" Foreground="#666" Margin="0,0,0,0"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Main Content -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="300" />
+            </Grid.ColumnDefinitions>
+
+            <!-- WebView2 -->
+            <Border Grid.Column="0" BorderBrush="#DDD" BorderThickness="0,0,1,0">
+                <wv2:WebView2 x:Name="WebView" Margin="0"/>
+            </Border>
+
+            <!-- Selection Panel -->
+            <Grid Grid.Column="1" Background="#FAFAFA">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" Background="#E8E8E8" Padding="10" BorderBrush="#DDD" BorderThickness="0,0,0,1">
+                    <TextBlock Text="Selected Elements" FontWeight="Bold" FontSize="12"/>
+                </Border>
+
+                <ScrollViewer Grid.Row="1" Padding="10">
+                    <StackPanel x:Name="SelectionPanel" Orientation="Vertical"/>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
