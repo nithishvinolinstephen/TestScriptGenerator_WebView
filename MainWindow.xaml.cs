@@ -11,6 +11,7 @@ using System.Windows.Shapes;
 using Microsoft.Extensions.Logging;
 using Microsoft.Web.WebView2.Wpf;
 using TestScriptGeneratorTool.Core;
+using TestScriptGeneratorTool.Domain;
 using TestScriptGeneratorTool.Infrastructure;
 using AppServices = TestScriptGeneratorTool.Application;
 
@@ -25,16 +26,18 @@ public partial class MainWindow : Window
     private readonly AppSettings _appSettings;
     private readonly WebViewService _webViewService;
     private readonly AppServices.ITestScenarioService _scenarioService;
+    private readonly ILocatorEngine _locatorEngine;
     private bool _isWebViewInitialized = false;
     private bool _isSelectionModeActive = false;
     private int _selectionCount = 0;
 
-    public MainWindow(ILogger<MainWindow> logger, AppSettings appSettings, WebViewService webViewService, AppServices.ITestScenarioService scenarioService)
+    public MainWindow(ILogger<MainWindow> logger, AppSettings appSettings, WebViewService webViewService, AppServices.ITestScenarioService scenarioService, ILocatorEngine locatorEngine)
     {
         _logger = logger;
         _appSettings = appSettings;
         _webViewService = webViewService;
         _scenarioService = scenarioService;
+        _locatorEngine = locatorEngine;
         InitializeComponent();
         _logger.LogInformation($"MainWindow initialized - App: {_appSettings.AppName} v{_appSettings.AppVersion}");
     }
@@ -146,9 +149,9 @@ public partial class MainWindow : Window
         _logger.LogInformation("Selection cleared");
     }
 
-    private void WebViewService_ElementSelected(object? sender, ElementInfo elementInfo)
+    private async void WebViewService_ElementSelected(object? sender, ElementInfo elementInfo)
     {
-        Dispatcher.Invoke(() =>
+        await Dispatcher.InvokeAsync(async () =>
         {
             _selectionCount++;
             _logger.LogInformation($"Element {_selectionCount} selected: {elementInfo.Type}");
@@ -198,7 +201,145 @@ public partial class MainWindow : Window
             SelectionPanel.Children.Add(border);
 
             StatusTextBlock.Text = $"Element {_selectionCount} selected: {elementInfo.Type}";
+            
+            // Generate and display locator
+            await DisplayLocatorForElementAsync(elementInfo);
         });
+    }
+
+    private async Task DisplayLocatorForElementAsync(ElementInfo elementInfo)
+    {
+        try
+        {
+            _logger.LogInformation("Generating locator for element: {Type}", elementInfo.Type);
+            
+            // Create ElementDescriptor from ElementInfo
+            var element = new ElementDescriptor
+            {
+                TagName = elementInfo.Type,
+                Id = elementInfo.Id,
+                ClassList = !string.IsNullOrEmpty(elementInfo.ClassName) 
+                    ? elementInfo.ClassName.Split(' ').ToList() 
+                    : new(),
+                InnerText = elementInfo.Text,
+                CssSelector = elementInfo.Selector
+            };
+
+            // Generate locator
+            var locator = await _locatorEngine.GenerateLocatorAsync(element);
+            _logger.LogInformation($"Locator generated - Type: {locator.LocatorType}, Locator: {locator.PrimaryLocator}");
+
+            // Display in locator panel
+            await Dispatcher.InvokeAsync(() =>
+            {
+                LocatorPanel.Children.Clear();
+
+                // Primary locator
+                var primaryBorder = new Border
+                {
+                    Background = new SolidColorBrush(Color.FromRgb(230, 245, 230)),
+                    BorderBrush = new SolidColorBrush(Color.FromRgb(76, 175, 80)),
+                    BorderThickness = new Thickness(1),
+                    Padding = new Thickness(10),
+                    Margin = new Thickness(0, 0, 0, 10),
+                    CornerRadius = new CornerRadius(3)
+                };
+
+                var primaryStack = new StackPanel();
+                primaryStack.Children.Add(CreateTextBlock("Primary Locator", FontWeights.Bold, 11));
+                primaryStack.Children.Add(CreateTextBlock($"Type: {locator.LocatorType}", FontWeights.Normal, 10, "#666"));
+                
+                var primaryLocatorPanel = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(0, 5, 0, 0) };
+                var primaryTextBox = new TextBox
+                {
+                    Text = locator.PrimaryLocator,
+                    IsReadOnly = false,
+                    Padding = new Thickness(5),
+                    Margin = new Thickness(0, 0, 5, 0),
+                    Height = 30,
+                    Background = new SolidColorBrush(Colors.White),
+                    Foreground = new SolidColorBrush(Colors.Black),
+                    FontFamily = new System.Windows.Media.FontFamily("Consolas")
+                };
+                primaryLocatorPanel.Children.Add(primaryTextBox);
+
+                var editButton = new Button
+                {
+                    Content = "Edit",
+                    Padding = new Thickness(10, 5, 10, 5),
+                    Height = 30,
+                    Background = new SolidColorBrush(Color.FromRgb(66, 133, 244)),
+                    Foreground = new SolidColorBrush(Colors.White),
+                    FontWeight = FontWeights.Bold
+                };
+                editButton.Click += (s, e) => EditLocator(primaryTextBox, locator);
+                primaryLocatorPanel.Children.Add(editButton);
+
+                primaryStack.Children.Add(primaryLocatorPanel);
+                primaryBorder.Child = primaryStack;
+                LocatorPanel.Children.Add(primaryBorder);
+
+                // Alternative locators
+                if (locator.Alternatives.Count > 0)
+                {
+                    var altHeader = CreateTextBlock("Alternative Locators", FontWeights.Bold, 11);
+                    altHeader.Margin = new Thickness(0, 10, 0, 5);
+                    LocatorPanel.Children.Add(altHeader);
+
+                    foreach (var alt in locator.Alternatives)
+                    {
+                        var altBorder = new Border
+                        {
+                            Background = new SolidColorBrush(Color.FromRgb(245, 245, 245)),
+                            BorderBrush = new SolidColorBrush(Color.FromRgb(200, 200, 200)),
+                            BorderThickness = new Thickness(1),
+                            Padding = new Thickness(10),
+                            Margin = new Thickness(0, 0, 0, 5),
+                            CornerRadius = new CornerRadius(2)
+                        };
+
+                        var altTextBlock = new TextBlock
+                        {
+                            Text = alt,
+                            TextWrapping = TextWrapping.Wrap,
+                            FontFamily = new System.Windows.Media.FontFamily("Consolas"),
+                            FontSize = 10,
+                            Foreground = new SolidColorBrush(Color.FromRgb(100, 100, 100))
+                        };
+
+                        altBorder.Child = altTextBlock;
+                        LocatorPanel.Children.Add(altBorder);
+                    }
+                }
+
+                StatusTextBlock.Text = $"Locator generated - Primary: {locator.PrimaryLocator}";
+            });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Failed to generate locator: {ex.Message}");
+            await Dispatcher.InvokeAsync(() =>
+            {
+                StatusTextBlock.Text = $"Locator generation failed: {ex.Message}";
+            });
+        }
+    }
+
+    private void EditLocator(TextBox textBox, LocatorDefinition locator)
+    {
+        if (!textBox.IsReadOnly)
+        {
+            textBox.IsReadOnly = true;
+            locator.IsUserModified = true;
+            locator.PrimaryLocator = textBox.Text;
+            _logger.LogInformation($"Locator updated by user: {locator.PrimaryLocator}");
+            StatusTextBlock.Text = "Locator updated";
+        }
+        else
+        {
+            textBox.IsReadOnly = false;
+            StatusTextBlock.Text = "Locator editing enabled";
+        }
     }
 
     private TextBlock CreateTextBlock(string text, FontWeight weight, int size, string color = "#000")

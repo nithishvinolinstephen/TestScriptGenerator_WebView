@@ -23,6 +23,7 @@ namespace TestScriptGeneratorTool.Core
             // Register Infrastructure Services
             services.AddSingleton<ISelectionService, SelectionService>();
             services.AddSingleton<WebViewService>();
+            services.AddSingleton<ILocatorEngine, LocatorEngine>();
 
             // Register Application Services
             services.AddSingleton<ITestScenarioService, TestScenarioService>();

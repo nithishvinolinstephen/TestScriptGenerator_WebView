@@ -42,20 +42,50 @@
                 <wv2:WebView2 x:Name="WebView" Margin="0"/>
             </Border>
 
-            <!-- Selection Panel -->
+            <!-- Selection and Locator Panel -->
             <Grid Grid.Column="1" Background="#FAFAFA">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <Border Grid.Row="0" Background="#E8E8E8" Padding="10" BorderBrush="#DDD" BorderThickness="0,0,0,1">
-                    <TextBlock Text="Selected Elements" FontWeight="Bold" FontSize="12"/>
-                </Border>
+                <TabControl Grid.Row="0" Grid.RowSpan="2">
+                    <!-- Selected Elements Tab -->
+                    <TabItem Header="Selected Elements" Padding="15,5">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
 
-                <ScrollViewer Grid.Row="1" Padding="10">
-                    <StackPanel x:Name="SelectionPanel" Orientation="Vertical"/>
-                </ScrollViewer>
+                            <Border Grid.Row="0" Background="#E8E8E8" Padding="10" BorderBrush="#DDD" BorderThickness="0,0,0,1">
+                                <TextBlock Text="Elements" FontWeight="Bold" FontSize="12"/>
+                            </Border>
+
+                            <ScrollViewer Grid.Row="1" Padding="10">
+                                <StackPanel x:Name="SelectionPanel" Orientation="Vertical"/>
+                            </ScrollViewer>
+                        </Grid>
+                    </TabItem>
+
+                    <!-- Locator Tab -->
+                    <TabItem Header="Locator" Padding="15,5">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <Border Grid.Row="0" Background="#E8E8E8" Padding="10" BorderBrush="#DDD" BorderThickness="0,0,0,1">
+                                <TextBlock Text="Locator Definition" FontWeight="Bold" FontSize="12"/>
+                            </Border>
+
+                            <ScrollViewer Grid.Row="1" Padding="10">
+                                <StackPanel x:Name="LocatorPanel" Orientation="Vertical"/>
+                            </ScrollViewer>
+                        </Grid>
+                    </TabItem>
+                </TabControl>
             </Grid>
         </Grid>
     </Grid>

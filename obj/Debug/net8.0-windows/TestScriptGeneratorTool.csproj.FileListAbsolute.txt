@@ -48,3 +48,4 @@ C:\GenAI-QA\Projects\TestScriptGenerator\TestScriptGeneratorTool\TestScriptGener
 C:\GenAI-QA\Projects\TestScriptGenerator\TestScriptGeneratorTool\TestScriptGeneratorTool\obj\Debug\net8.0-windows\TestScriptGeneratorTool.pdb
 C:\GenAI-QA\Projects\TestScriptGenerator\TestScriptGeneratorTool\TestScriptGeneratorTool\obj\Debug\net8.0-windows\TestScriptGeneratorTool.genruntimeconfig.cache
 C:\GenAI-QA\Projects\TestScriptGenerator\TestScriptGeneratorTool\TestScriptGeneratorTool\obj\Debug\net8.0-windows\ref\TestScriptGeneratorTool.dll
+C:\GenAI-QA\Projects\TestScriptGenerator\TestScriptGeneratorTool\TestScriptGeneratorTool\obj\Debug\net8.0-windows\TestScriptGeneratorTool.sourcelink.json
