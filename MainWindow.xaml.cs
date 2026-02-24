@@ -74,6 +74,9 @@ public partial class MainWindow : Window
 
             // Create default scenario
             _scenarioService.CreateScenario("Default Scenario", "Test scenario for element selection");
+            
+            // Initialize step builder
+            InitializeStepBuilder();
         }
         catch (Exception ex)
         {
@@ -81,6 +84,14 @@ public partial class MainWindow : Window
             StatusTextBlock.Text = $"Error: {ex.Message}";
             MessageBox.Show($"WebView2 initialization failed: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
+    }
+
+    private void InitializeStepBuilder()
+    {
+        // Populate action type dropdown
+        ActionTypeComboBox.ItemsSource = Enum.GetValues(typeof(AppServices.ActionType)).Cast<AppServices.ActionType>();
+        ActionTypeComboBox.SelectedIndex = 0;
+        _logger.LogInformation("Step builder initialized");
     }
 
     private void NavigateButton_Click(object sender, RoutedEventArgs e)
@@ -159,10 +170,10 @@ public partial class MainWindow : Window
             // Create a test step
             var testStep = new AppServices.TestStep
             {
-                Action = "click",
+                ActionType = AppServices.ActionType.Click,
                 ElementType = elementInfo.Type,
                 ElementSelector = elementInfo.Selector,
-                Value = elementInfo.Text
+                InputValue = elementInfo.Text
             };
 
             // Add to scenario
@@ -339,6 +350,282 @@ public partial class MainWindow : Window
         {
             textBox.IsReadOnly = false;
             StatusTextBlock.Text = "Locator editing enabled";
+        }
+    }
+
+    private void AddStepButton_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            var scenario = _scenarioService.GetCurrentScenario();
+            if (scenario == null)
+            {
+                MessageBox.Show("No scenario created. Please reload.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            // Get values from UI
+            var actionType = (AppServices.ActionType)(ActionTypeComboBox.SelectedItem ?? AppServices.ActionType.Click);
+            var inputValue = InputValueTextBox.Text.Trim();
+
+            // Validate based on action type
+            if (actionType == AppServices.ActionType.Navigate && string.IsNullOrEmpty(inputValue))
+            {
+                MessageBox.Show("Navigation URL is required.", "Validation", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if ((actionType == AppServices.ActionType.TypeText || actionType == AppServices.ActionType.SelectDropdown) && string.IsNullOrEmpty(inputValue))
+            {
+                MessageBox.Show("Input value is required for this action.", "Validation", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            // Create test step
+            var step = new AppServices.TestStep
+            {
+                ActionType = actionType,
+                InputValue = inputValue,
+                Order = scenario.Steps.Count,
+                ElementSelector = "", // Will be filled from element selection
+                ElementType = ""
+            };
+
+            // Add to scenario
+            _scenarioService.AddStep(step);
+            _logger.LogInformation($"Step added: {step.GetDescription()}");
+
+            // Refresh display
+            RefreshStepsList();
+
+            // Clear input
+            InputValueTextBox.Text = "";
+            ActionTypeComboBox.SelectedIndex = 0;
+
+            StatusTextBlock.Text = $"Step added: {step.GetDescription()}";
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Failed to add step: {ex.Message}");
+            MessageBox.Show($"Error adding step: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    private void RefreshStepsList()
+    {
+        try
+        {
+            StepsPanel.Children.Clear();
+
+            var scenario = _scenarioService.GetCurrentScenario();
+            if (scenario == null || scenario.Steps.Count == 0)
+            {
+                var noStepsText = new TextBlock
+                {
+                    Text = "No steps added yet",
+                    Foreground = new SolidColorBrush(Color.FromRgb(150, 150, 150)),
+                    FontStyle = FontStyles.Italic,
+                    Margin = new Thickness(0, 10, 0, 0)
+                };
+                StepsPanel.Children.Add(noStepsText);
+                return;
+            }
+
+            for (int i = 0; i < scenario.Steps.Count; i++)
+            {
+                var step = scenario.Steps[i];
+                var stepIndex = i;
+
+                // Create step card
+                var stepBorder = new Border
+                {
+                    Background = new SolidColorBrush(Color.FromRgb(240, 248, 255)),
+                    BorderBrush = new SolidColorBrush(Color.FromRgb(100, 150, 200)),
+                    BorderThickness = new Thickness(1),
+                    Padding = new Thickness(10),
+                    Margin = new Thickness(0, 0, 0, 8),
+                    CornerRadius = new CornerRadius(3)
+                };
+
+                var stepGrid = new Grid();
+                stepGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+                stepGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+                stepGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+                stepGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+
+                // Step info
+                var stepNumber = new TextBlock
+                {
+                    Text = $"Step {stepIndex + 1}: {step.GetDescription()}",
+                    FontWeight = FontWeights.Bold,
+                    FontSize = 11,
+                    Margin = new Thickness(0, 0, 0, 5)
+                };
+                Grid.SetColumn(stepNumber, 0);
+                Grid.SetRow(stepNumber, 0);
+                stepGrid.Children.Add(stepNumber);
+
+                // Step details
+                var stepDetails = new TextBlock
+                {
+                    Text = $"Action: {step.ActionType} | Value: {step.InputValue ?? "(none)"}",
+                    FontSize = 9,
+                    Foreground = new SolidColorBrush(Color.FromRgb(100, 100, 100))
+                };
+                Grid.SetColumn(stepDetails, 0);
+                Grid.SetRow(stepDetails, 1);
+                stepGrid.Children.Add(stepDetails);
+
+                // Button panel
+                var buttonPanel = new StackPanel { Orientation = Orientation.Vertical };
+                Grid.SetColumn(buttonPanel, 1);
+                Grid.SetRowSpan(buttonPanel, 2);
+                Grid.SetRow(buttonPanel, 0);
+
+                // Move up button
+                if (stepIndex > 0)
+                {
+                    var upButton = new Button
+                    {
+                        Content = "▲",
+                        Width = 24,
+                        Height = 24,
+                        Padding = new Thickness(0),
+                        FontSize = 10,
+                        Background = new SolidColorBrush(Color.FromRgb(76, 175, 80)),
+                        Foreground = new SolidColorBrush(Colors.White)
+                    };
+                    var upIndex = stepIndex;
+                    upButton.Click += (s, e) => MoveStepUp(upIndex);
+                    buttonPanel.Children.Add(upButton);
+                }
+
+                // Move down button
+                if (stepIndex < scenario.Steps.Count - 1)
+                {
+                    var downButton = new Button
+                    {
+                        Content = "▼",
+                        Width = 24,
+                        Height = 24,
+                        Padding = new Thickness(0),
+                        FontSize = 10,
+                        Background = new SolidColorBrush(Color.FromRgb(76, 175, 80)),
+                        Foreground = new SolidColorBrush(Colors.White)
+                    };
+                    var downIndex = stepIndex;
+                    downButton.Click += (s, e) => MoveStepDown(downIndex);
+                    buttonPanel.Children.Add(downButton);
+                }
+
+                // Delete button
+                var deleteButton = new Button
+                {
+                    Content = "✕",
+                    Width = 24,
+                    Height = 24,
+                    Padding = new Thickness(0),
+                    FontSize = 10,
+                    Background = new SolidColorBrush(Color.FromRgb(244, 67, 54)),
+                    Foreground = new SolidColorBrush(Colors.White)
+                };
+                var deleteIndex = stepIndex;
+                deleteButton.Click += (s, e) => DeleteStep(deleteIndex);
+                buttonPanel.Children.Add(deleteButton);
+
+                stepGrid.Children.Add(buttonPanel);
+                stepBorder.Child = stepGrid;
+                StepsPanel.Children.Add(stepBorder);
+            }
+
+            _logger.LogInformation($"Steps list refreshed: {scenario.Steps.Count} steps");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Failed to refresh steps list: {ex.Message}");
+        }
+    }
+
+    private void MoveStepUp(int index)
+    {
+        try
+        {
+            var scenario = _scenarioService.GetCurrentScenario();
+            if (scenario == null || index <= 0 || index >= scenario.Steps.Count) return;
+
+            // Swap steps
+            var temp = scenario.Steps[index];
+            scenario.Steps[index] = scenario.Steps[index - 1];
+            scenario.Steps[index - 1] = temp;
+
+            // Update order
+            for (int i = 0; i < scenario.Steps.Count; i++)
+                scenario.Steps[i].Order = i;
+
+            RefreshStepsList();
+            StatusTextBlock.Text = $"Step {index} moved up";
+            _logger.LogInformation($"Step {index} moved up");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Failed to move step up: {ex.Message}");
+        }
+    }
+
+    private void MoveStepDown(int index)
+    {
+        try
+        {
+            var scenario = _scenarioService.GetCurrentScenario();
+            if (scenario == null || index < 0 || index >= scenario.Steps.Count - 1) return;
+
+            // Swap steps
+            var temp = scenario.Steps[index];
+            scenario.Steps[index] = scenario.Steps[index + 1];
+            scenario.Steps[index + 1] = temp;
+
+            // Update order
+            for (int i = 0; i < scenario.Steps.Count; i++)
+                scenario.Steps[i].Order = i;
+
+            RefreshStepsList();
+            StatusTextBlock.Text = $"Step {index + 1} moved down";
+            _logger.LogInformation($"Step {index + 1} moved down");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Failed to move step down: {ex.Message}");
+        }
+    }
+
+    private void DeleteStep(int index)
+    {
+        try
+        {
+            var scenario = _scenarioService.GetCurrentScenario();
+            if (scenario == null || index < 0 || index >= scenario.Steps.Count) return;
+
+            var result = MessageBox.Show(
+                $"Delete step {index + 1}: {scenario.Steps[index].GetDescription()}?",
+                "Confirm Delete",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
+
+            if (result != MessageBoxResult.Yes) return;
+
+            scenario.Steps.RemoveAt(index);
+
+            // Update order
+            for (int i = 0; i < scenario.Steps.Count; i++)
+                scenario.Steps[i].Order = i;
+
+            RefreshStepsList();
+            StatusTextBlock.Text = $"Step {index + 1} deleted";
+            _logger.LogInformation($"Step {index + 1} deleted");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Failed to delete step: {ex.Message}");
         }
     }
 

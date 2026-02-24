@@ -1,6 +1,34 @@
 namespace TestScriptGeneratorTool.Application
 {
     /// <summary>
+    /// Enumeration of all supported test actions.
+    /// </summary>
+    public enum ActionType
+    {
+        Click,
+        TypeText,
+        SelectDropdown,
+        Hover,
+        Navigate,
+        AssertVisible,
+        AssertTextEquals,
+        AssertAttribute,
+        WaitForElement,
+        UploadFile,
+        Screenshot
+    }
+
+    /// <summary>
+    /// Assertion rule for verification steps.
+    /// </summary>
+    public class AssertionRule
+    {
+        public string AssertionType { get; set; } = ""; // "visible", "text", "attribute"
+        public string ExpectedValue { get; set; } = "";
+        public string? AttributeName { get; set; }
+    }
+
+    /// <summary>
     /// Represents a test scenario/script.
     /// </summary>
     public class TestScenario
@@ -19,11 +47,34 @@ namespace TestScriptGeneratorTool.Application
     public class TestStep
     {
         public string Id { get; set; } = Guid.NewGuid().ToString();
-        public string Action { get; set; } = ""; // click, input, verify, navigate
+        public ActionType ActionType { get; set; } = ActionType.Click;
         public string ElementSelector { get; set; } = "";
         public string ElementType { get; set; } = "";
-        public string Value { get; set; } = ""; // For input actions
-        public string ExpectedResult { get; set; } = "";
+        public string? InputValue { get; set; } = ""; // For TypeText, SelectDropdown actions
+        public AssertionRule? Assertion { get; set; } // For assertion actions
         public int Order { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+
+        /// <summary>
+        /// Gets a user-friendly description of this step.
+        /// </summary>
+        public string GetDescription()
+        {
+            return ActionType switch
+            {
+                ActionType.Click => $"Click {ElementType}",
+                ActionType.TypeText => $"Type '{InputValue}' in {ElementType}",
+                ActionType.SelectDropdown => $"Select '{InputValue}' in {ElementType}",
+                ActionType.Hover => $"Hover over {ElementType}",
+                ActionType.Navigate => $"Navigate to {InputValue}",
+                ActionType.AssertVisible => $"Assert {ElementType} is visible",
+                ActionType.AssertTextEquals => $"Assert {ElementType} text equals '{Assertion?.ExpectedValue}'",
+                ActionType.AssertAttribute => $"Assert {ElementType} {Assertion?.AttributeName} equals '{Assertion?.ExpectedValue}'",
+                ActionType.WaitForElement => $"Wait for {ElementType}",
+                ActionType.UploadFile => $"Upload file '{InputValue}' to {ElementType}",
+                ActionType.Screenshot => "Take screenshot",
+                _ => "Unknown action"
+            };
+        }
     }
 }
