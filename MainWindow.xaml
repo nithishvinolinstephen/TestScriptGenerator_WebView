@@ -12,6 +12,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <!-- Toolbar -->
@@ -25,6 +26,20 @@
                 
                 <Button x:Name="SelectElementButton" Content="Select Element" Width="100" Height="30" Margin="0,0,10,0" Click="SelectElementButton_Click"/>
                 <Button x:Name="ClearSelectionButton" Content="Clear" Width="70" Height="30" Margin="0,0,20,0" Click="ClearSelectionButton_Click"/>
+
+                <Separator Width="1" Background="#CCC" Margin="0,5,20,5"/>
+
+                <Button x:Name="SettingsButton" Content="⚙ Settings" Width="100" Height="30" Margin="0,0,20,0" Click="SettingsButton_Click" ToolTip="Configure AI settings and API keys"/>
+
+                <Separator Width="1" Background="#CCC" Margin="0,5,20,5"/>
+
+                <TextBlock Text="Mode:" VerticalAlignment="Center" Margin="0,0,5,0" FontSize="10"/>
+                <RadioButton x:Name="DeterministicRadio" Content="Deterministic" VerticalAlignment="Center" Margin="0,0,15,0" IsChecked="True" FontSize="10" Checked="ModeRadioButton_Checked"/>
+                <RadioButton x:Name="AIRadio" Content="AI" VerticalAlignment="Center" Margin="0,0,20,0" FontSize="10" Checked="ModeRadioButton_Checked"/>
+
+
+                <ComboBox x:Name="FrameworkComboBox" Width="150" Height="30" Margin="0,0,10,0" FontSize="10"/>
+                <Button x:Name="GenerateButton" Content="Generate Script" Width="120" Height="30" Margin="0,0,20,0" Background="#2196F3" Foreground="White" FontWeight="Bold" Click="GenerateButton_Click"/>
                 
                 <TextBlock x:Name="StatusTextBlock" VerticalAlignment="Center" Foreground="#666" Margin="0,0,0,0"/>
             </StackPanel>
@@ -33,9 +48,9 @@
         <!-- Main Content -->
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="2*" x:Name="BrowserColumn"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="1*" x:Name="MiddleColumn" MinWidth="0"/>
             </Grid.ColumnDefinitions>
 
             <!-- Left: WebView2 -->
@@ -43,9 +58,26 @@
                 <wv2:WebView2 x:Name="WebView" Margin="0"/>
             </Border>
 
+            <!-- GridSplitter for resizing -->
+            <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" Background="#E0E0E0" Cursor="SizeWE" MouseEnter="GridSplitter_MouseEnter" MouseLeave="GridSplitter_MouseLeave"/>
+
             <!-- Middle: Selection and Locator Panel -->
-            <Border Grid.Column="1" Background="#FAFAFA" BorderBrush="#DDD" BorderThickness="1,0,1,0">
-                <TabControl>
+            <Border Grid.Column="2" Background="#FAFAFA" BorderBrush="#DDD" BorderThickness="1,0,0,0" x:Name="MiddlePanelBorder">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Header with collapse button -->
+                    <Border Grid.Row="0" Background="#D0D0D0" Padding="8" BorderBrush="#CCC" BorderThickness="0,0,0,1">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Inspector" FontWeight="Bold" FontSize="11" VerticalAlignment="Center"/>
+                            <Button x:Name="CollapsePanelButton" Content=">" Width="28" Height="24" Margin="5,0,0,0" FontSize="12" FontWeight="Bold" Click="CollapsePanelButton_Click" ToolTip="Hide inspector panel"/>
+                        </StackPanel>
+                    </Border>
+
+                    <TabControl Grid.Row="1">
                     <!-- Selected Elements Tab -->
                     <TabItem Header="Elements" Padding="10,5">
                         <Grid>
@@ -65,74 +97,134 @@
                     </TabItem>
 
                     <!-- Locator Tab -->
-                    <TabItem Header="Locator" Padding="10,5">
+                    <TabItem Header="Locators" Padding="10,5" x:Name="LocatorsTab">
                         <Grid>
                             <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
 
                             <Border Grid.Row="0" Background="#E8E8E8" Padding="10" BorderBrush="#DDD" BorderThickness="0,0,0,1">
-                                <TextBlock Text="Locator Definition" FontWeight="Bold" FontSize="11"/>
+                                <TextBlock Text="Locator Selector" FontWeight="Bold" FontSize="11"/>
                             </Border>
 
-                            <ScrollViewer Grid.Row="1" Padding="10">
+                            <!-- Locator Type Selection -->
+                            <Grid Grid.Row="1" Margin="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="Type:" VerticalAlignment="Center" Margin="0,0,10,0" FontWeight="Bold"/>
+                                <ComboBox Grid.Column="1" x:Name="LocatorTypeComboBox" Height="28" FontSize="10" SelectionChanged="LocatorTypeComboBox_SelectionChanged"/>
+                            </Grid>
+
+                            <!-- Locator Display -->
+                            <Grid Grid.Row="2" Margin="10,0,10,10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <TextBox Grid.Row="0" x:Name="LocatorDisplayTextBox" Height="70" TextWrapping="Wrap" IsReadOnly="True" Background="White" FontFamily="Courier New" FontSize="9" Padding="5" VerticalAlignment="Top" Margin="0,0,0,8"/>
+                                
+                                <StackPanel Grid.Row="1" Orientation="Horizontal">
+                                    <Button x:Name="CopyLocatorButton" Content="📋 Copy" Width="80" Height="28" Background="#2196F3" Foreground="White" FontWeight="Bold" FontSize="10" Click="CopyLocatorButton_Click" Margin="0,0,5,0"/>
+                                    <TextBlock x:Name="LocatorCountTextBlock" VerticalAlignment="Center" Foreground="#666" FontSize="10"/>
+                                </StackPanel>
+                            </Grid>
+
+                            <ScrollViewer Grid.Row="3" Padding="10">
                                 <StackPanel x:Name="LocatorPanel" Orientation="Vertical"/>
                             </ScrollViewer>
                         </Grid>
                     </TabItem>
+
+                    <!-- AI Actions Tab -->
+                    <TabItem Header="AI Actions" Padding="10,5" x:Name="AIActionsTab" Visibility="Hidden">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <Border Grid.Row="0" Background="#E8E8E8" Padding="10" BorderBrush="#DDD" BorderThickness="0,0,0,1">
+                                <TextBlock Text="Describe Actions" FontWeight="Bold" FontSize="11"/>
+                            </Border>
+
+                            <!-- Action Input -->
+                            <Grid Grid.Row="1" Margin="10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Grid.Row="0" Text="Action Description:" FontWeight="Bold" Margin="0,0,0,5" FontSize="10"/>
+                                <TextBox Grid.Row="1" x:Name="AIActionDescriptionTextBox" Height="60" TextWrapping="Wrap" AcceptsReturn="True" Background="White" Padding="5" FontSize="10"/>
+                            </Grid>
+
+                            <!-- Add Action Button -->
+                            <Button Grid.Row="2" x:Name="AddActionButton" Content="Add Action" Height="28" Background="#4CAF50" Foreground="White" FontWeight="Bold" FontSize="10" Click="AddActionButton_Click" Margin="10,0,10,10"/>
+
+                            <!-- Actions List -->
+                            <Grid Grid.Row="3">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <Border Grid.Row="0" Background="#E8E8E8" Padding="8" BorderBrush="#DDD" BorderThickness="0,0,0,1">
+                                    <TextBlock Text="Actions Queue" FontWeight="Bold" FontSize="10"/>
+                                </Border>
+
+                                <ScrollViewer Grid.Row="1" Padding="10">
+                                    <StackPanel x:Name="AIActionsListPanel" Orientation="Vertical"/>
+                                </ScrollViewer>
+                            </Grid>
+                        </Grid>
+                    </TabItem>
                 </TabControl>
+                </Grid>
             </Border>
 
-            <!-- Right: Step Builder and Scenario Panel -->
-            <Grid Grid.Column="2" Background="#FAFAFA">
+        </Grid>
+
+        <!-- Output Panel -->
+        <Border Grid.Row="2" Background="#E8E8E8" BorderBrush="#DDD" BorderThickness="0,1,0,0" Height="200">
+            <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <!-- Step Builder -->
-                <Border Grid.Row="0" Background="#E8E8E8" Padding="10" BorderBrush="#DDD" BorderThickness="0,0,0,1">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-
-                        <TextBlock Grid.Row="0" Text="Step Builder" FontWeight="Bold" FontSize="12" Margin="0,0,0,8"/>
-
-                        <!-- Action Type Dropdown -->
-                        <Grid Grid.Row="1" Margin="0,0,0,5">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="Action:" VerticalAlignment="Center" Margin="0,0,5,0" FontSize="10"/>
-                            <ComboBox Grid.Column="1" x:Name="ActionTypeComboBox" Height="24" FontSize="10"/>
-                        </Grid>
-
-                        <!-- Input Value -->
-                        <Grid Grid.Row="2" Margin="0,0,0,5">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="Value:" VerticalAlignment="Center" Margin="0,0,5,0" FontSize="10"/>
-                            <TextBox Grid.Column="1" x:Name="InputValueTextBox" Height="24" Padding="3" FontSize="10" />
-                        </Grid>
-
-                        <!-- Add Step Button -->
-                        <Button Grid.Row="3" x:Name="AddStepButton" Content="Add Step" Height="28" Background="#4CAF50" Foreground="White" FontWeight="Bold" FontSize="10" Click="AddStepButton_Click"/>
-                    </Grid>
+                <Border Grid.Row="0" Background="#D0D0D0" Padding="10" BorderBrush="#CCC" BorderThickness="0,0,0,1">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Generated Script Output" FontWeight="Bold" FontSize="11" VerticalAlignment="Center"/>
+                        <Button x:Name="CopyPageObjectButton" Content="Copy Page Object" Width="120" Height="24" Margin="10,0,5,0" FontSize="9" Click="CopyPageObjectButton_Click"/>
+                        <Button x:Name="CopyTestClassButton" Content="Copy Test Class" Width="120" Height="24" Margin="0,0,5,0" FontSize="9" Click="CopyTestClassButton_Click"/>
+                        <Button x:Name="ClearOutputButton" Content="Clear" Width="70" Height="24" FontSize="9" Background="#FF6B6B" Foreground="White" Click="ClearOutputButton_Click"/>
+                    </StackPanel>
                 </Border>
 
-                <!-- Step List -->
-                <ScrollViewer Grid.Row="1" Padding="10">
-                    <StackPanel x:Name="StepsPanel" Orientation="Vertical"/>
-                </ScrollViewer>
+                <TabControl Grid.Row="1">
+                    <!-- Page Object Tab -->
+                    <TabItem Header="Page Object" Padding="10,5">
+                        <Grid>
+                            <TextBox x:Name="PageObjectTextBox" TextWrapping="Wrap" AcceptsReturn="True" IsReadOnly="True" Background="White" FontFamily="Courier New" FontSize="9" Padding="5" VerticalScrollBarVisibility="Auto"/>
+                        </Grid>
+                    </TabItem>
+
+                    <!-- Test Class Tab -->
+                    <TabItem Header="Test Class" Padding="10,5">
+                        <Grid>
+                            <TextBox x:Name="TestClassTextBox" TextWrapping="Wrap" AcceptsReturn="True" IsReadOnly="True" Background="White" FontFamily="Courier New" FontSize="9" Padding="5" VerticalScrollBarVisibility="Auto"/>
+                        </Grid>
+                    </TabItem>
+                </TabControl>
             </Grid>
-        </Grid>
+        </Border>
     </Grid>
 </Window>

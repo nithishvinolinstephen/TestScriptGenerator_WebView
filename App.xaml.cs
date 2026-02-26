@@ -16,6 +16,11 @@ public partial class App : System.Windows.Application
     private IServiceProvider? _serviceProvider;
     private ILogger? _logger;
 
+    /// <summary>
+    /// Gets the global service provider for dependency injection.
+    /// </summary>
+    public static IServiceProvider? ServiceProvider { get; private set; }
+
     private void App_Startup(object sender, StartupEventArgs e)
     {
         try
@@ -29,6 +34,7 @@ public partial class App : System.Windows.Application
             services.AddSingleton<MainWindow>();
             
             _serviceProvider = services.BuildServiceProvider();
+            ServiceProvider = _serviceProvider;
             _logger = _serviceProvider.GetRequiredService<ILogger<App>>();
             
             _logger.LogInformation("Application startup initiated");

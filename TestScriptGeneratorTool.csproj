@@ -12,8 +12,22 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.3" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.3" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="10.0.3" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="10.0.3" />
     <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3800.47" />
     <PackageReference Include="Scriban" Version="5.11.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Embed prompt template files as resources -->
+    <EmbeddedResource Include="Prompts\system.txt" />
+    <EmbeddedResource Include="Prompts\SeleniumJava\system.txt" />
+    <EmbeddedResource Include="Prompts\SeleniumJava\user.txt" />
+    <EmbeddedResource Include="Prompts\SeleniumCSharp\system.txt" />
+    <EmbeddedResource Include="Prompts\SeleniumCSharp\user.txt" />
+    <EmbeddedResource Include="Prompts\PlaywrightTypeScript\system.txt" />
+    <EmbeddedResource Include="Prompts\PlaywrightTypeScript\user.txt" />
+    <EmbeddedResource Include="Prompts\PlaywrightDotNet\system.txt" />
+    <EmbeddedResource Include="Prompts\PlaywrightDotNet\user.txt" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,15 @@
 namespace TestScriptGeneratorTool.Domain
 {
     /// <summary>
+    /// Represents a single alternative locator with type information.
+    /// </summary>
+    public class AlternativeLocator
+    {
+        public string LocatorType { get; set; } = ""; // "id", "name", "css", "xpath", etc.
+        public string LocatorValue { get; set; } = "";
+    }
+
+    /// <summary>
     /// Defines a locator for an element with primary and alternative locators.
     /// </summary>
     public class LocatorDefinition
@@ -9,6 +18,7 @@ namespace TestScriptGeneratorTool.Domain
         public string PrimaryLocator { get; set; } = "";
         public string LocatorType { get; set; } = ""; // "id", "name", "css", "xpath", "data-qa"
         public List<string> Alternatives { get; set; } = new();
+        public List<AlternativeLocator> TypedAlternatives { get; set; } = new();
         public bool IsUserModified { get; set; } = false;
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }

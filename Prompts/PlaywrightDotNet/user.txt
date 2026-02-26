@@ -1,0 +1,38 @@
+Generate Playwright .NET automation code (C# NUnit) for the following test scenario:
+
+FRAMEWORK DETAILS:
+- Framework: Playwright for .NET
+- Language: C#
+- Test Runner: NUnit 3
+- Wait Strategy: Playwright built-in waits
+- Browser: Chromium
+
+ELEMENT SPECIFICATIONS:
+{{ELEMENTS}}
+
+TEST STEPS TO AUTOMATE:
+{{STEPS}}
+
+REQUIREMENTS:
+1. Create a Page Object class that:
+   - Uses Playwright IPage Locator API
+   - Encapsulates all element locators
+   - Has one method per action (Click, Fill, Select, etc.)
+   - Receives IPage in constructor
+   - Follows C# naming conventions (PascalCase)
+   - Uses async/await for all operations
+
+2. Create a Test class that:
+   - Uses [TestFixture] and [Test] attributes from NUnit 3
+   - Implements [SetUp] and [TearDown] for browser lifecycle
+   - Creates IPage instance and navigates to URL
+   - Instantiates Page Object with the page instance
+   - Calls Page Object methods to implement all steps
+   - Uses Assert for validation
+
+OUTPUT FORMAT:
+- First code block: Page Object class (wrapped in ```csharp)
+- Second code block: Test class (wrapped in ```csharp)
+- Both must be complete, runnable C# code
+- Include all required using statements (Microsoft.Playwright, NUnit.Framework, etc.)
+- Use async/await properly for all async operations

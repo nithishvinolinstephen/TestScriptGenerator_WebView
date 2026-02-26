@@ -1,3 +1,5 @@
+using TestScriptGeneratorTool.Domain;
+
 namespace TestScriptGeneratorTool.Application
 {
     /// <summary>
@@ -50,6 +52,7 @@ namespace TestScriptGeneratorTool.Application
         public ActionType ActionType { get; set; } = ActionType.Click;
         public string ElementSelector { get; set; } = "";
         public string ElementType { get; set; } = "";
+        public LocatorDefinition? Locator { get; set; } // Full locator with alternatives
         public string? InputValue { get; set; } = ""; // For TypeText, SelectDropdown actions
         public AssertionRule? Assertion { get; set; } // For assertion actions
         public int Order { get; set; }

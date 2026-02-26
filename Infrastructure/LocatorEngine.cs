@@ -80,7 +80,15 @@ namespace TestScriptGeneratorTool.Infrastructure
 
                 // Add alternatives
                 locator.Alternatives = alternatives.Where(alt => alt != locator.PrimaryLocator).ToList();
-                _logger.LogInformation("Generated {Count} alternative locators", locator.Alternatives.Count);
+                
+                // Build typed alternatives with type information
+                locator.TypedAlternatives = GetTypedAlternativeLocators(element);
+                // Remove the primary locator type from alternatives
+                locator.TypedAlternatives = locator.TypedAlternatives
+                    .Where(alt => !alt.LocatorType.Equals(locator.LocatorType, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+                
+                _logger.LogInformation("Generated {Count} alternative locators", locator.TypedAlternatives.Count);
 
                 return locator;
             }
@@ -128,6 +136,88 @@ namespace TestScriptGeneratorTool.Infrastructure
                 _logger.LogError($"Failed to validate locator uniqueness: {ex.Message}");
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Gets all alternative locators for an element with type information.
+        /// </summary>
+        public List<AlternativeLocator> GetTypedAlternativeLocators(ElementDescriptor element)
+        {
+            var alternatives = new List<AlternativeLocator>();
+
+            // ID locator
+            if (!string.IsNullOrEmpty(element.Id))
+            {
+                alternatives.Add(new AlternativeLocator
+                {
+                    LocatorType = "id",
+                    LocatorValue = $"#{element.Id}"
+                });
+            }
+
+            // Name locator
+            if (!string.IsNullOrEmpty(element.Name))
+            {
+                alternatives.Add(new AlternativeLocator
+                {
+                    LocatorType = "name",
+                    LocatorValue = $"[name='{element.Name}']"
+                });
+            }
+
+            // Data-QA locator
+            if (element.Attributes.ContainsKey("data-qa"))
+            {
+                alternatives.Add(new AlternativeLocator
+                {
+                    LocatorType = "data-qa",
+                    LocatorValue = $"[data-qa='{element.Attributes["data-qa"]}']"
+                });
+            }
+
+            // Data-TestID locator
+            if (element.Attributes.ContainsKey("data-testid"))
+            {
+                alternatives.Add(new AlternativeLocator
+                {
+                    LocatorType = "data-testid",
+                    LocatorValue = $"[data-testid='{element.Attributes["data-testid"]}']"
+                });
+            }
+
+            // CSS selector
+            if (!string.IsNullOrEmpty(element.CssSelector))
+            {
+                alternatives.Add(new AlternativeLocator
+                {
+                    LocatorType = "css",
+                    LocatorValue = element.CssSelector
+                });
+            }
+
+            // XPath
+            if (!string.IsNullOrEmpty(element.XPath))
+            {
+                alternatives.Add(new AlternativeLocator
+                {
+                    LocatorType = "xpath",
+                    LocatorValue = element.XPath
+                });
+            }
+
+            // Tag + class combination
+            if (element.ClassList.Count > 0)
+            {
+                var classes = string.Join(".", element.ClassList);
+                alternatives.Add(new AlternativeLocator
+                {
+                    LocatorType = "class",
+                    LocatorValue = $"{element.TagName}.{classes}"
+                });
+            }
+
+            _logger.LogInformation("Generated {Count} typed alternative locators", alternatives.Count);
+            return alternatives.DistinctBy(a => a.LocatorValue).ToList();
         }
 
         /// <summary>

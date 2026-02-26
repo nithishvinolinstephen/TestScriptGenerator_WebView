@@ -49,3 +49,8 @@ C:\GenAI-QA\Projects\TestScriptGenerator\TestScriptGeneratorTool\TestScriptGener
 C:\GenAI-QA\Projects\TestScriptGenerator\TestScriptGeneratorTool\TestScriptGeneratorTool\obj\Debug\net8.0-windows\TestScriptGeneratorTool.genruntimeconfig.cache
 C:\GenAI-QA\Projects\TestScriptGenerator\TestScriptGeneratorTool\TestScriptGeneratorTool\obj\Debug\net8.0-windows\ref\TestScriptGeneratorTool.dll
 C:\GenAI-QA\Projects\TestScriptGenerator\TestScriptGeneratorTool\TestScriptGeneratorTool\obj\Debug\net8.0-windows\TestScriptGeneratorTool.sourcelink.json
+C:\GenAI-QA\Projects\TestScriptGenerator\TestScriptGeneratorTool\TestScriptGeneratorTool\bin\Debug\net8.0-windows\Microsoft.Extensions.Diagnostics.dll
+C:\GenAI-QA\Projects\TestScriptGenerator\TestScriptGeneratorTool\TestScriptGeneratorTool\bin\Debug\net8.0-windows\Microsoft.Extensions.Diagnostics.Abstractions.dll
+C:\GenAI-QA\Projects\TestScriptGenerator\TestScriptGeneratorTool\TestScriptGeneratorTool\bin\Debug\net8.0-windows\Microsoft.Extensions.Http.dll
+C:\GenAI-QA\Projects\TestScriptGenerator\TestScriptGeneratorTool\TestScriptGeneratorTool\obj\Debug\net8.0-windows\SettingsWindow.baml
+C:\GenAI-QA\Projects\TestScriptGenerator\TestScriptGeneratorTool\TestScriptGeneratorTool\obj\Debug\net8.0-windows\SettingsWindow.g.cs

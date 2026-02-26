@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "oQcOkbJYQFI=",
+  "dgSpecHash": "koBcBSC9JYM=",
   "success": true,
   "projectFilePath": "C:\\GenAI-QA\\Projects\\TestScriptGenerator\\TestScriptGeneratorTool\\TestScriptGeneratorTool\\TestScriptGeneratorTool.csproj",
   "expectedPackageFiles": [
@@ -9,6 +9,9 @@
     "C:\\Users\\nithi\\.nuget\\packages\\microsoft.extensions.configuration.binder\\10.0.3\\microsoft.extensions.configuration.binder.10.0.3.nupkg.sha512",
     "C:\\Users\\nithi\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\10.0.3\\microsoft.extensions.dependencyinjection.10.0.3.nupkg.sha512",
     "C:\\Users\\nithi\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\10.0.3\\microsoft.extensions.dependencyinjection.abstractions.10.0.3.nupkg.sha512",
+    "C:\\Users\\nithi\\.nuget\\packages\\microsoft.extensions.diagnostics\\10.0.3\\microsoft.extensions.diagnostics.10.0.3.nupkg.sha512",
+    "C:\\Users\\nithi\\.nuget\\packages\\microsoft.extensions.diagnostics.abstractions\\10.0.3\\microsoft.extensions.diagnostics.abstractions.10.0.3.nupkg.sha512",
+    "C:\\Users\\nithi\\.nuget\\packages\\microsoft.extensions.http\\10.0.3\\microsoft.extensions.http.10.0.3.nupkg.sha512",
     "C:\\Users\\nithi\\.nuget\\packages\\microsoft.extensions.logging\\10.0.3\\microsoft.extensions.logging.10.0.3.nupkg.sha512",
     "C:\\Users\\nithi\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\10.0.3\\microsoft.extensions.logging.abstractions.10.0.3.nupkg.sha512",
     "C:\\Users\\nithi\\.nuget\\packages\\microsoft.extensions.logging.configuration\\10.0.3\\microsoft.extensions.logging.configuration.10.0.3.nupkg.sha512",
