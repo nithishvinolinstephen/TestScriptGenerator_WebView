@@ -1,0 +1,38 @@
+Generate Playwright TypeScript automation code (Jest) for the following test scenario:
+
+FRAMEWORK DETAILS:
+- Framework: Playwright for Node.js
+- Language: TypeScript
+- Test Runner: Jest with @playwright/test
+- Wait Strategy: Playwright built-in auto-waiting
+- Browser: Chromium
+
+ELEMENT SPECIFICATIONS:
+{{ELEMENTS}}
+
+TEST STEPS TO AUTOMATE:
+{{STEPS}}
+
+REQUIREMENTS:
+1. Create a Page Object class that:
+   - Uses Playwright Locator API (not $ or evaluate)
+   - Encapsulates all element locators as properties
+   - Has one method per action (click, fill, select, etc.)
+   - Receives Page object in constructor
+   - Follows TypeScript naming conventions (camelCase)
+   - Uses proper TypeScript types and async/await
+
+2. Create a Test file that:
+   - Uses test() and expect() from @playwright/test
+   - Implements test hook (beforeAll, afterAll, or similar)
+   - Creates Page instance and navigates to URL
+   - Instantiates Page Object with the page instance
+   - Calls Page Object methods to implement all steps
+   - Uses assertions to validate test outcomes
+
+OUTPUT FORMAT:
+- First code block: Page Object class (wrapped in ```typescript)
+- Second code block: Test file (wrapped in ```typescript)
+- Both must be complete, runnable TypeScript code
+- Include all required imports (Page, expect from @playwright/test)
+- Use async/await properly for all async operations

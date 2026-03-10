@@ -1,0 +1,36 @@
+Generate Selenium 4 C# automation code (NUnit 3) for the following test scenario:
+
+FRAMEWORK DETAILS:
+- Framework: Selenium 4
+- Language: C#
+- Test Runner: NUnit 3
+- Wait Strategy: WebDriverWait with ExpectedConditions
+- Browser: Chrome
+
+ELEMENT SPECIFICATIONS:
+{{ELEMENTS}}
+
+TEST STEPS TO AUTOMATE:
+{{STEPS}}
+
+REQUIREMENTS:
+1. Create a Page Object class that:
+   - Encapsulates all element locators as IWebElement properties or By locators
+   - Has one method per action (Click, Type, Select, Assert, etc.)
+   - Uses explicit waits (WebDriverWait) for reliability
+   - Follows C# naming conventions (PascalCase for public methods)
+   - Includes constructor that accepts IWebDriver instance
+
+2. Create a Test class that:
+   - Uses [TestFixture] and [Test] attributes from NUnit 3
+   - Calls only Page Object methods
+   - Sets up WebDriver in [SetUp] method
+   - Cleans up in [TearDown] method
+   - Contains exactly one test method implementing all the steps
+   - Uses Assert for validation where applicable
+
+OUTPUT FORMAT:
+- First code block: Page Object class (wrapped in ```csharp)
+- Second code block: Test class (wrapped in ```csharp)
+- Both must be complete, compilable C# code
+- Include all required using statements (OpenQA.Selenium, OpenQA.Selenium.Chrome, NUnit.Framework, etc.)

@@ -1,0 +1,36 @@
+Generate Selenium 4 Java automation code (JUnit 5) for the following test scenario:
+
+FRAMEWORK DETAILS:
+- Framework: Selenium 4
+- Language: Java
+- Test Runner: JUnit 5
+- Wait Strategy: WebDriverWait with ExpectedConditions
+- Browser: Chrome
+
+ELEMENT SPECIFICATIONS:
+{{ELEMENTS}}
+
+TEST STEPS TO AUTOMATE:
+{{STEPS}}
+
+REQUIREMENTS:
+1. Create a Page Object class that:
+   - Encapsulates all element locators as private WebElement fields or By selectors
+   - Has one method per action (click, type, select, assert, etc.)
+   - Uses explicit waits (WebDriverWait) for reliability
+   - Follows Java naming conventions (camelCase)
+   - Includes constructor that accepts WebDriver instance
+
+2. Create a Test class that:
+   - Uses @Test annotation from JUnit 5
+   - Calls only Page Object methods
+   - Sets up WebDriver in @BeforeEach
+   - Cleans up in @AfterEach
+   - Contains exactly one test method implementing all the steps
+   - Uses assertions to validate test steps where applicable
+
+OUTPUT FORMAT:
+- First code block: Page Object class (wrapped in ```java)
+- Second code block: Test class (wrapped in ```java)
+- Both must be complete, compilable Java code
+- Include all required imports (WebDriver, WebElement, By, WebDriverWait, ExpectedConditions, JUnit 5)
