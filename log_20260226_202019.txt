@@ -1,0 +1,204 @@
+[2026-02-26 20:20:19.945] [INFORMATION] [TestScriptGeneratorTool.App] Application startup initiated
+[2026-02-26 20:20:19.953] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.WebViewService] WebViewService created
+[2026-02-26 20:20:19.986] [INFORMATION] [TestScriptGeneratorTool.Application.ScriptGenerationService] Templates loaded successfully
+[2026-02-26 20:20:20.327] [ERROR] [TestScriptGeneratorTool.MainWindow] Failed to update mode UI: Object reference not set to an instance of an object.
+[2026-02-26 20:20:20.415] [INFORMATION] [TestScriptGeneratorTool.MainWindow] MainWindow initialized - App: Test Automation Script Generator v0.1.0-phase0
+[2026-02-26 20:20:20.828] [INFORMATION] [TestScriptGeneratorTool.MainWindow] MainWindow loaded, initializing WebView2
+[2026-02-26 20:20:20.834] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.WebViewService] WebView2 initialization started
+[2026-02-26 20:20:21.495] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.WebViewService] WebView2 initialization completed successfully
+[2026-02-26 20:20:21.504] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.WebViewService] Navigating to: https://www.example.com
+[2026-02-26 20:20:21.506] [INFORMATION] [TestScriptGeneratorTool.MainWindow] WebView2 initialized successfully
+[2026-02-26 20:20:21.512] [INFORMATION] [TestScriptGeneratorTool.MainWindow] Framework selector initialized
+[2026-02-26 20:20:21.516] [INFORMATION] [TestScriptGeneratorTool.MainWindow] Locator selector initialized
+[2026-02-26 20:20:21.518] [INFORMATION] [TestScriptGeneratorTool.MainWindow] AI prompt panel initialized
+[2026-02-26 20:20:21.519] [INFORMATION] [TestScriptGeneratorTool.MainWindow] Mode updated to: AI
+[2026-02-26 20:20:21.715] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.WebViewService] Navigation completed successfully
+[2026-02-26 20:20:27.983] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.WebViewService] Navigating to: https://www.amazon`.com
+[2026-02-26 20:20:27.985] [INFORMATION] [TestScriptGeneratorTool.MainWindow] Navigation requested to: https://www.amazon`.com
+[2026-02-26 20:20:28.410] [WARNING] [TestScriptGeneratorTool.Infrastructure.WebViewService] Navigation failed with code: HostNameNotResolved
+[2026-02-26 20:20:29.299] [WARNING] [TestScriptGeneratorTool.Infrastructure.WebViewService] Navigation failed with code: ConnectionAborted
+[2026-02-26 20:20:34.324] [WARNING] [TestScriptGeneratorTool.Infrastructure.WebViewService] Navigation failed with code: ConnectionAborted
+[2026-02-26 20:20:38.148] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.WebViewService] Navigating to: https://www.amazon.com
+[2026-02-26 20:20:38.149] [INFORMATION] [TestScriptGeneratorTool.MainWindow] Navigation requested to: https://www.amazon.com
+[2026-02-26 20:20:39.512] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.WebViewService] Navigation completed successfully
+[2026-02-26 20:20:58.178] [INFORMATION] [TestScriptGeneratorTool.Application.GroqClient] Groq health check URL: https://api.groq.com/openai/v1/chat/completions
+[2026-02-26 20:20:58.572] [INFORMATION] [TestScriptGeneratorTool.Application.GroqClient] Groq health check successful
+[2026-02-26 20:21:01.410] [INFORMATION] [TestScriptGeneratorTool.SettingsWindow] AI settings saved for provider: Groq
+[2026-02-26 20:21:02.836] [INFORMATION] [TestScriptGeneratorTool.MainWindow] AI settings updated
+[2026-02-26 20:21:06.103] [INFORMATION] [TestScriptGeneratorTool.MainWindow] Selection mode toggle: True
+[2026-02-26 20:21:06.104] [INFORMATION] [TestScriptGeneratorTool.MainWindow] Element selection mode enabled
+[2026-02-26 20:21:06.108] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.WebViewService] Enabling element selection mode
+[2026-02-26 20:21:06.140] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.WebViewService] Script executed successfully
+[2026-02-26 20:21:07.064] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.WebViewService] Web message received: {"type":"elementSelected","data":{"type":"div","id":"nav-search","className":"","text":"\n   \n  \n\n    \n      \n        \n  \n    \n      All\n      \n    \n    Select the department you want to se","selector":"#nav-search","attributes":{"id":"nav-search","style":"outline: rgb(255, 107, 107) solid 3px; outline-offset: 2px;"}}}
+[2026-02-26 20:21:07.114] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.WebViewService] Message type: elementSelected
+[2026-02-26 20:21:07.125] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.WebViewService] Element selected: div - #nav-search
+[2026-02-26 20:21:07.135] [INFORMATION] [TestScriptGeneratorTool.MainWindow] Element 1 selected: div
+[2026-02-26 20:21:07.139] [INFORMATION] [TestScriptGeneratorTool.MainWindow] Generating locator for element: div
+[2026-02-26 20:21:07.147] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.LocatorEngine] Generating locator for element: div
+[2026-02-26 20:21:07.151] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.LocatorEngine] Generated 2 alternative locators
+[2026-02-26 20:21:07.153] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.LocatorEngine] Primary locator is ID: #nav-search
+[2026-02-26 20:21:07.157] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.LocatorEngine] Validating locator uniqueness: #nav-search
+[2026-02-26 20:21:07.161] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.WebViewService] Script executed successfully
+[2026-02-26 20:21:07.163] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.LocatorEngine] Locator validation result: 1 matching elements, Unique: True
+[2026-02-26 20:21:07.164] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.LocatorEngine] Primary locator is unique
+[2026-02-26 20:21:07.168] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.LocatorEngine] Generated 2 typed alternative locators
+[2026-02-26 20:21:07.171] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.LocatorEngine] Generated 0 alternative locators
+[2026-02-26 20:21:07.172] [INFORMATION] [TestScriptGeneratorTool.MainWindow] Locator generated - Type: id, Locator: #nav-search
+[2026-02-26 20:21:07.174] [INFORMATION] [TestScriptGeneratorTool.MainWindow] Test step added to scenario: Default Scenario
+[2026-02-26 20:21:08.786] [INFORMATION] [TestScriptGeneratorTool.MainWindow] Selection mode toggle: False
+[2026-02-26 20:21:08.789] [INFORMATION] [TestScriptGeneratorTool.MainWindow] Element selection mode disabled
+[2026-02-26 20:21:08.792] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.WebViewService] Disabling element selection mode
+[2026-02-26 20:21:08.798] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.WebViewService] Script executed successfully
+[2026-02-26 20:21:10.016] [INFORMATION] [TestScriptGeneratorTool.MainWindow] Selection mode toggle: True
+[2026-02-26 20:21:10.018] [INFORMATION] [TestScriptGeneratorTool.MainWindow] Element selection mode enabled
+[2026-02-26 20:21:10.019] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.WebViewService] Enabling element selection mode
+[2026-02-26 20:21:10.024] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.WebViewService] Script executed successfully
+[2026-02-26 20:21:11.147] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.WebViewService] Web message received: {"type":"elementSelected","data":{"type":"input","id":"twotabsearchtextbox","className":"nav-input nav-progressive-attribute","text":"","selector":"#twotabsearchtextbox","attributes":{"type":"text","id":"twotabsearchtextbox","value":"","name":"field-keywords","autocomplete":"off","placeholder":"Search Amazon","class":"nav-input nav-progressive-attribute","dir":"auto","tabindex":"0","aria-label":"Search Amazon","role":"searchbox","aria-autocomplete":"list","aria-controls":"sac-autocomplete-results-container","aria-expanded":"true","aria-haspopup":"grid","spellcheck":"false","data-agent-button-proxy":"nav-search-submit-button-agent","data-agent-field":"search-query","form":"nav-search-bar-form","data-agent-patched":"true","style":"outline: rgb(255, 107, 107) solid 3px; outline-offset: 2px;"}}}
+[2026-02-26 20:21:11.148] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.WebViewService] Message type: elementSelected
+[2026-02-26 20:21:11.149] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.WebViewService] Element selected: input - #twotabsearchtextbox
+[2026-02-26 20:21:11.151] [INFORMATION] [TestScriptGeneratorTool.MainWindow] Element 2 selected: input
+[2026-02-26 20:21:11.152] [INFORMATION] [TestScriptGeneratorTool.MainWindow] Generating locator for element: input
+[2026-02-26 20:21:11.154] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.LocatorEngine] Generating locator for element: input
+[2026-02-26 20:21:11.155] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.LocatorEngine] Generated 3 alternative locators
+[2026-02-26 20:21:11.156] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.LocatorEngine] Primary locator is ID: #twotabsearchtextbox
+[2026-02-26 20:21:11.157] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.LocatorEngine] Validating locator uniqueness: #twotabsearchtextbox
+[2026-02-26 20:21:11.160] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.WebViewService] Script executed successfully
+[2026-02-26 20:21:11.161] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.LocatorEngine] Locator validation result: 1 matching elements, Unique: True
+[2026-02-26 20:21:11.162] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.LocatorEngine] Primary locator is unique
+[2026-02-26 20:21:11.163] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.LocatorEngine] Generated 3 typed alternative locators
+[2026-02-26 20:21:11.165] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.LocatorEngine] Generated 1 alternative locators
+[2026-02-26 20:21:11.166] [INFORMATION] [TestScriptGeneratorTool.MainWindow] Locator generated - Type: id, Locator: #twotabsearchtextbox
+[2026-02-26 20:21:11.167] [INFORMATION] [TestScriptGeneratorTool.MainWindow] Test step added to scenario: Default Scenario
+[2026-02-26 20:21:15.147] [INFORMATION] [TestScriptGeneratorTool.MainWindow] Selection cleared
+[2026-02-26 20:21:16.146] [INFORMATION] [TestScriptGeneratorTool.MainWindow] Selection mode toggle: False
+[2026-02-26 20:21:16.148] [INFORMATION] [TestScriptGeneratorTool.MainWindow] Element selection mode disabled
+[2026-02-26 20:21:16.149] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.WebViewService] Disabling element selection mode
+[2026-02-26 20:21:16.155] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.WebViewService] Script executed successfully
+[2026-02-26 20:21:17.788] [INFORMATION] [TestScriptGeneratorTool.MainWindow] Selection cleared
+[2026-02-26 20:21:18.458] [INFORMATION] [TestScriptGeneratorTool.MainWindow] Selection mode toggle: True
+[2026-02-26 20:21:18.460] [INFORMATION] [TestScriptGeneratorTool.MainWindow] Element selection mode enabled
+[2026-02-26 20:21:18.461] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.WebViewService] Enabling element selection mode
+[2026-02-26 20:21:18.466] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.WebViewService] Script executed successfully
+[2026-02-26 20:21:19.784] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.WebViewService] Web message received: {"type":"elementSelected","data":{"type":"input","id":"twotabsearchtextbox","className":"nav-input nav-progressive-attribute","text":"","selector":"#twotabsearchtextbox","attributes":{"type":"text","id":"twotabsearchtextbox","value":"","name":"field-keywords","autocomplete":"off","placeholder":"Search Amazon","class":"nav-input nav-progressive-attribute","dir":"auto","tabindex":"0","aria-label":"Search Amazon","role":"searchbox","aria-autocomplete":"list","aria-controls":"sac-autocomplete-results-container","aria-expanded":"true","aria-haspopup":"grid","spellcheck":"false","data-agent-button-proxy":"nav-search-submit-button-agent","data-agent-field":"search-query","form":"nav-search-bar-form","data-agent-patched":"true","style":"outline: rgb(255, 107, 107) solid 3px; outline-offset: 2px;"}}}
+[2026-02-26 20:21:19.786] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.WebViewService] Message type: elementSelected
+[2026-02-26 20:21:19.787] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.WebViewService] Element selected: input - #twotabsearchtextbox
+[2026-02-26 20:21:19.790] [INFORMATION] [TestScriptGeneratorTool.MainWindow] Element 1 selected: input
+[2026-02-26 20:21:19.791] [INFORMATION] [TestScriptGeneratorTool.MainWindow] Generating locator for element: input
+[2026-02-26 20:21:19.792] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.LocatorEngine] Generating locator for element: input
+[2026-02-26 20:21:19.794] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.LocatorEngine] Generated 3 alternative locators
+[2026-02-26 20:21:19.795] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.LocatorEngine] Primary locator is ID: #twotabsearchtextbox
+[2026-02-26 20:21:19.797] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.LocatorEngine] Validating locator uniqueness: #twotabsearchtextbox
+[2026-02-26 20:21:19.800] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.WebViewService] Script executed successfully
+[2026-02-26 20:21:19.801] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.LocatorEngine] Locator validation result: 1 matching elements, Unique: True
+[2026-02-26 20:21:19.802] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.LocatorEngine] Primary locator is unique
+[2026-02-26 20:21:19.804] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.LocatorEngine] Generated 3 typed alternative locators
+[2026-02-26 20:21:19.805] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.LocatorEngine] Generated 1 alternative locators
+[2026-02-26 20:21:19.806] [INFORMATION] [TestScriptGeneratorTool.MainWindow] Locator generated - Type: id, Locator: #twotabsearchtextbox
+[2026-02-26 20:21:19.807] [INFORMATION] [TestScriptGeneratorTool.MainWindow] Test step added to scenario: Default Scenario
+[2026-02-26 20:21:20.860] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.WebViewService] Web message received: {"type":"elementSelected","data":{"type":"input","id":"nav-search-submit-button","className":"nav-input nav-progressive-attribute","text":"","selector":"#nav-search-submit-button","attributes":{"id":"nav-search-submit-button","type":"submit","class":"nav-input nav-progressive-attribute","value":"Go","tabindex":"0","style":"outline: rgb(255, 107, 107) solid 3px; outline-offset: 2px;"}}}
+[2026-02-26 20:21:20.861] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.WebViewService] Message type: elementSelected
+[2026-02-26 20:21:20.862] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.WebViewService] Element selected: input - #nav-search-submit-button
+[2026-02-26 20:21:20.865] [INFORMATION] [TestScriptGeneratorTool.MainWindow] Element 2 selected: input
+[2026-02-26 20:21:20.866] [INFORMATION] [TestScriptGeneratorTool.MainWindow] Generating locator for element: input
+[2026-02-26 20:21:20.867] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.LocatorEngine] Generating locator for element: input
+[2026-02-26 20:21:20.868] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.LocatorEngine] Generated 3 alternative locators
+[2026-02-26 20:21:20.868] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.LocatorEngine] Primary locator is ID: #nav-search-submit-button
+[2026-02-26 20:21:20.869] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.LocatorEngine] Validating locator uniqueness: #nav-search-submit-button
+[2026-02-26 20:21:20.891] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.WebViewService] Script executed successfully
+[2026-02-26 20:21:20.892] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.LocatorEngine] Locator validation result: 1 matching elements, Unique: True
+[2026-02-26 20:21:20.893] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.LocatorEngine] Primary locator is unique
+[2026-02-26 20:21:20.895] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.LocatorEngine] Generated 3 typed alternative locators
+[2026-02-26 20:21:20.896] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.LocatorEngine] Generated 1 alternative locators
+[2026-02-26 20:21:20.897] [INFORMATION] [TestScriptGeneratorTool.MainWindow] Locator generated - Type: id, Locator: #nav-search-submit-button
+[2026-02-26 20:21:20.898] [INFORMATION] [TestScriptGeneratorTool.MainWindow] Test step added to scenario: Default Scenario
+[2026-02-26 20:21:21.752] [INFORMATION] [TestScriptGeneratorTool.MainWindow] Selection mode toggle: False
+[2026-02-26 20:21:21.753] [INFORMATION] [TestScriptGeneratorTool.MainWindow] Element selection mode disabled
+[2026-02-26 20:21:21.754] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.WebViewService] Disabling element selection mode
+[2026-02-26 20:21:21.769] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.WebViewService] Script executed successfully
+[2026-02-26 20:21:23.248] [INFORMATION] [TestScriptGeneratorTool.Infrastructure.WebViewService] Navigation completed successfully
+[2026-02-26 20:21:31.084] [INFORMATION] [TestScriptGeneratorTool.MainWindow] Generate button clicked. Mode selected: AI
+[2026-02-26 20:21:31.089] [DEBUG] [TestScriptGeneratorTool.MainWindow] Building elements list from scenario with 4 steps
+[2026-02-26 20:21:31.092] [DEBUG] [TestScriptGeneratorTool.MainWindow] Added element: div with locator #nav-search
+[2026-02-26 20:21:31.093] [DEBUG] [TestScriptGeneratorTool.MainWindow] Added element: input with locator #twotabsearchtextbox
+[2026-02-26 20:21:31.094] [DEBUG] [TestScriptGeneratorTool.MainWindow] Added element: input with locator #twotabsearchtextbox
+[2026-02-26 20:21:31.095] [DEBUG] [TestScriptGeneratorTool.MainWindow] Added element: input with locator #nav-search-submit-button
+[2026-02-26 20:21:31.096] [INFORMATION] [TestScriptGeneratorTool.MainWindow] Built elements list with 4 elements
+[2026-02-26 20:21:31.103] [INFORMATION] [TestScriptGeneratorTool.MainWindow] Starting AI generation with 4 elements
+[2026-02-26 20:21:31.106] [DEBUG] [TestScriptGeneratorTool.MainWindow] Elements in context: div, input, input, input
+[2026-02-26 20:21:31.107] [DEBUG] [TestScriptGeneratorTool.MainWindow] User prompt: search apple iphone
+[2026-02-26 20:21:31.116] [INFORMATION] [TestScriptGeneratorTool.Application.AIGenerationCoordinator] AIGenerationCoordinator.GenerateAsync called with context: Framework=Selenium Java, Elements=4, UserPrompt length=19
+[2026-02-26 20:21:31.118] [INFORMATION] [TestScriptGeneratorTool.Application.AIGenerationCoordinator] AI generation attempt 1 of 3
+[2026-02-26 20:21:31.122] [INFORMATION] [TestScriptGeneratorTool.Application.PromptBuilder] Built elements description with 4 elements
+[2026-02-26 20:21:31.123] [DEBUG] [TestScriptGeneratorTool.Application.PromptBuilder] Elements text: Element 1:
+  - Type: div
+  - Locator: #nav-search
+  - Variable: div_1
+Element 2:
+  - Type: input
+  - Locator: #twotabsearchtextbox
+  - Variable: input_2
+Element 3:
+  - Type: input
+  - Locator: #twotabsearchtextbox
+  - Variable: input_3
+Element 4:
+  - Type: input
+  - Locator: #nav-search-submit-button
+  - Variable: input_4
+[2026-02-26 20:21:31.126] [INFORMATION] [TestScriptGeneratorTool.Application.PromptBuilder] Built ICE POT generation prompt for Selenium Java with 4936 characters
+[2026-02-26 20:21:31.128] [DEBUG] [TestScriptGeneratorTool.Application.PromptBuilder] Prompt preview: 
+═══════════════════════════════════════════════════════════════════════════════
+I — INSTRUCTIONS
+═══════════════════════════════════════════════════════════════════════════════
+You are an expert ...
+[2026-02-26 20:21:31.129] [DEBUG] [TestScriptGeneratorTool.Application.AIGenerationCoordinator] Built prompt of 4936 characters
+[2026-02-26 20:21:31.193] [INFORMATION] [System.Net.Http.HttpClient.OpenAIClient.LogicalHandler] Start processing HTTP request POST https://api.groq.com/openai/v1/chat/completions
+[2026-02-26 20:21:31.198] [INFORMATION] [System.Net.Http.HttpClient.OpenAIClient.ClientHandler] Sending HTTP request POST https://api.groq.com/openai/v1/chat/completions
+[2026-02-26 20:21:31.357] [INFORMATION] [System.Net.Http.HttpClient.OpenAIClient.ClientHandler] Received HTTP response headers after 148.2127ms - 401
+[2026-02-26 20:21:31.359] [INFORMATION] [System.Net.Http.HttpClient.OpenAIClient.LogicalHandler] End processing HTTP request after 183.2232ms - 401
+[2026-02-26 20:21:31.365] [ERROR] [TestScriptGeneratorTool.Application.OpenAIClient] OpenAI API error: Unauthorized - {"error":{"message":"Invalid API Key","type":"invalid_request_error","code":"invalid_api_key"}}
+
+[2026-02-26 20:21:31.365] [ERROR] [TestScriptGeneratorTool.Application.OpenAIClient] OpenAI generation failed: OpenAI API returned Unauthorized
+[2026-02-26 20:21:31.367] [ERROR] [TestScriptGeneratorTool.Application.AIGenerationCoordinator] Generation attempt 1 failed: OpenAI API returned Unauthorized
+[2026-02-26 20:21:31.368] [INFORMATION] [TestScriptGeneratorTool.Application.AIGenerationCoordinator] AI generation attempt 2 of 3
+[2026-02-26 20:21:31.369] [INFORMATION] [TestScriptGeneratorTool.Application.PromptBuilder] Built repair prompt for Selenium Java
+[2026-02-26 20:21:31.370] [DEBUG] [TestScriptGeneratorTool.Application.AIGenerationCoordinator] Built prompt of 1179 characters
+[2026-02-26 20:21:31.371] [ERROR] [TestScriptGeneratorTool.Application.OpenAIClient] OpenAI generation failed: This instance has already started one or more requests. Properties can only be modified before sending the first request.
+[2026-02-26 20:21:31.372] [ERROR] [TestScriptGeneratorTool.Application.AIGenerationCoordinator] Generation attempt 2 failed: This instance has already started one or more requests. Properties can only be modified before sending the first request.
+[2026-02-26 20:21:31.373] [INFORMATION] [TestScriptGeneratorTool.Application.AIGenerationCoordinator] AI generation attempt 3 of 3
+[2026-02-26 20:21:31.373] [INFORMATION] [TestScriptGeneratorTool.Application.PromptBuilder] Built repair prompt for Selenium Java
+[2026-02-26 20:21:31.374] [DEBUG] [TestScriptGeneratorTool.Application.AIGenerationCoordinator] Built prompt of 1323 characters
+[2026-02-26 20:21:31.375] [ERROR] [TestScriptGeneratorTool.Application.OpenAIClient] OpenAI generation failed: This instance has already started one or more requests. Properties can only be modified before sending the first request.
+[2026-02-26 20:21:31.376] [ERROR] [TestScriptGeneratorTool.Application.AIGenerationCoordinator] Generation attempt 3 failed: This instance has already started one or more requests. Properties can only be modified before sending the first request.
+[2026-02-26 20:21:31.376] [WARNING] [TestScriptGeneratorTool.Application.AIGenerationCoordinator] All AI retries exhausted with no parsed response, falling back to deterministic generation
+[2026-02-26 20:21:31.489] [INFORMATION] [TestScriptGeneratorTool.Application.ScriptGenerationService] Script generated successfully for framework: Selenium Java
+[2026-02-26 20:21:31.490] [INFORMATION] [TestScriptGeneratorTool.MainWindow] AI generation completed. Success: True
+[2026-02-26 20:21:31.490] [INFORMATION] [TestScriptGeneratorTool.MainWindow] Test class code length: 896
+[2026-02-26 20:21:31.491] [INFORMATION] [TestScriptGeneratorTool.MainWindow] Test class first 150 chars: package com.example.automation;
+
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.junit.After;
+import org...
+[2026-02-26 20:21:31.491] [INFORMATION] [TestScriptGeneratorTool.MainWindow] Script generated (AI): Selenium Java
+[2026-02-26 20:22:20.045] [DEBUG] [Microsoft.Extensions.Http.DefaultHttpClientFactory] HttpMessageHandler expired after 120000ms for client 'OpenAIClient'
+[2026-02-26 20:22:30.077] [DEBUG] [Microsoft.Extensions.Http.DefaultHttpClientFactory] Starting HttpMessageHandler cleanup cycle with 1 items
+[2026-02-26 20:22:30.091] [DEBUG] [Microsoft.Extensions.Http.DefaultHttpClientFactory] Ending HttpMessageHandler cleanup cycle after 0.2922ms - processed: 0 items - remaining: 1 items
+[2026-02-26 20:22:40.093] [DEBUG] [Microsoft.Extensions.Http.DefaultHttpClientFactory] Starting HttpMessageHandler cleanup cycle with 1 items
+[2026-02-26 20:22:40.094] [DEBUG] [Microsoft.Extensions.Http.DefaultHttpClientFactory] Ending HttpMessageHandler cleanup cycle after 0.0049ms - processed: 0 items - remaining: 1 items
+[2026-02-26 20:22:50.107] [DEBUG] [Microsoft.Extensions.Http.DefaultHttpClientFactory] Starting HttpMessageHandler cleanup cycle with 1 items
+[2026-02-26 20:22:50.109] [DEBUG] [Microsoft.Extensions.Http.DefaultHttpClientFactory] Ending HttpMessageHandler cleanup cycle after 0.007ms - processed: 0 items - remaining: 1 items
+[2026-02-26 20:23:00.121] [DEBUG] [Microsoft.Extensions.Http.DefaultHttpClientFactory] Starting HttpMessageHandler cleanup cycle with 1 items
+[2026-02-26 20:23:00.123] [DEBUG] [Microsoft.Extensions.Http.DefaultHttpClientFactory] Ending HttpMessageHandler cleanup cycle after 0.0065ms - processed: 0 items - remaining: 1 items
+[2026-02-26 20:23:10.131] [DEBUG] [Microsoft.Extensions.Http.DefaultHttpClientFactory] Starting HttpMessageHandler cleanup cycle with 1 items
+[2026-02-26 20:23:10.132] [DEBUG] [Microsoft.Extensions.Http.DefaultHttpClientFactory] Ending HttpMessageHandler cleanup cycle after 0.0051ms - processed: 0 items - remaining: 1 items
+[2026-02-26 20:23:20.143] [DEBUG] [Microsoft.Extensions.Http.DefaultHttpClientFactory] Starting HttpMessageHandler cleanup cycle with 1 items
+[2026-02-26 20:23:20.144] [DEBUG] [Microsoft.Extensions.Http.DefaultHttpClientFactory] Ending HttpMessageHandler cleanup cycle after 0.0062ms - processed: 0 items - remaining: 1 items
+[2026-02-26 20:23:30.156] [DEBUG] [Microsoft.Extensions.Http.DefaultHttpClientFactory] Starting HttpMessageHandler cleanup cycle with 1 items
+[2026-02-26 20:23:30.156] [DEBUG] [Microsoft.Extensions.Http.DefaultHttpClientFactory] Ending HttpMessageHandler cleanup cycle after 0.0791ms - processed: 0 items - remaining: 1 items
+[2026-02-26 20:23:40.171] [DEBUG] [Microsoft.Extensions.Http.DefaultHttpClientFactory] Starting HttpMessageHandler cleanup cycle with 1 items
+[2026-02-26 20:23:40.172] [DEBUG] [Microsoft.Extensions.Http.DefaultHttpClientFactory] Ending HttpMessageHandler cleanup cycle after 0.0052ms - processed: 0 items - remaining: 1 items
+[2026-02-26 20:23:50.175] [DEBUG] [Microsoft.Extensions.Http.DefaultHttpClientFactory] Starting HttpMessageHandler cleanup cycle with 1 items
+[2026-02-26 20:23:50.177] [DEBUG] [Microsoft.Extensions.Http.DefaultHttpClientFactory] Ending HttpMessageHandler cleanup cycle after 0.0064ms - processed: 0 items - remaining: 1 items
+[2026-02-26 20:24:00.190] [DEBUG] [Microsoft.Extensions.Http.DefaultHttpClientFactory] Starting HttpMessageHandler cleanup cycle with 1 items
+[2026-02-26 20:24:00.191] [DEBUG] [Microsoft.Extensions.Http.DefaultHttpClientFactory] Ending HttpMessageHandler cleanup cycle after 0.004ms - processed: 0 items - remaining: 1 items
