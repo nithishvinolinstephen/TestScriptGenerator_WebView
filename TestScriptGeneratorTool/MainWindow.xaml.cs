@@ -545,16 +545,24 @@ public partial class MainWindow : Window
             
             if (useAI)
             {
-                // Check if API key is provided
-                var apiKey = await GetOrPromptForAPIKey();
-                if (string.IsNullOrEmpty(apiKey))
+                // Ensure API key is set for the current provider
+                if (string.IsNullOrEmpty(_aiSettings.ApiKey))
                 {
-                    StatusTextBlock.Text = "API key required for AI mode";
-                    GenerateButton.IsEnabled = true;
-                    return;
+                    // If not set in settings, try to retrieve or prompt for it
+                    var apiKey = await GetOrPromptForAPIKeyForProvider(_aiSettings.Provider);
+                    if (string.IsNullOrEmpty(apiKey))
+                    {
+                        StatusTextBlock.Text = "API key required for AI mode";
+                        GenerateButton.IsEnabled = true;
+                        return;
+                    }
+                    _aiSettings.ApiKey = apiKey?.Trim();
                 }
-
-                _aiSettings.ApiKey = apiKey;
+                else
+                {
+                    // Ensure API key is trimmed (no whitespace)
+                    _aiSettings.ApiKey = _aiSettings.ApiKey?.Trim();
+                }
                 _aiSettings.Enabled = true;
 
                 _logger.LogInformation($"Starting AI generation with {context.Elements.Count} elements");
@@ -614,23 +622,28 @@ public partial class MainWindow : Window
         }
     }
 
-    private async Task<string?> GetOrPromptForAPIKey()
+    private async Task<string?> GetOrPromptForAPIKeyForProvider(string provider)
     {
         try
         {
-            // Try to retrieve from credential service
+            // Try to retrieve from credential service using provider-specific key
             if (App.ServiceProvider == null)
                 throw new InvalidOperationException("Service provider not initialized");
             
             var credService = App.ServiceProvider.GetRequiredService<Infrastructure.ICredentialService>();
-            var stored = await credService.GetCredentialAsync("OpenAI.ApiKey");
+            // Use provider-specific credential key (e.g., "Groq.ApiKey", "OpenAI.ApiKey")
+            var credentialKey = $"{provider ?? "OpenAI"}.ApiKey";
+            var stored = await credService.GetCredentialAsync(credentialKey);
             if (!string.IsNullOrEmpty(stored))
-                return stored;
+            {
+                _logger.LogInformation($"Retrieved API key for provider {provider} from credential service (key length: {stored.Trim().Length})");
+                return stored.Trim();
+            }
 
             // Prompt user
             var apiKeyWindow = new Window
             {
-                Title = "Enter OpenAI API Key",
+                Title = $"Enter {provider ?? "OpenAI"} API Key",
                 Width = 400,
                 Height = 150,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner,
@@ -642,7 +655,7 @@ public partial class MainWindow : Window
             grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 
-            var label = new TextBlock { Text = "OpenAI API Key:", Margin = new Thickness(10) };
+            var label = new TextBlock { Text = $"{provider ?? "OpenAI"} API Key:", Margin = new Thickness(10) };
             System.Windows.Controls.Grid.SetRow(label, 0);
             grid.Children.Add(label);
 
@@ -666,9 +679,10 @@ public partial class MainWindow : Window
             
             if (apiKeyWindow.ShowDialog() == true)
             {
-                var apiKey = textBox.Password;
+                var apiKey = textBox.Password?.Trim();
                 if (!string.IsNullOrEmpty(apiKey))
                 {
+                    _logger.LogInformation($"User entered API key for provider {provider} (length: {apiKey.Length})");
                     return apiKey;
                 }
             }
@@ -677,7 +691,7 @@ public partial class MainWindow : Window
         }
         catch (Exception ex)
         {
-            _logger.LogError($"Error getting API key: {ex.Message}");
+            _logger.LogError($"Error getting API key for provider {provider}: {ex.Message}");
             return null;
         }
     }

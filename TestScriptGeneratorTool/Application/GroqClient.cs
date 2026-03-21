@@ -35,7 +35,10 @@ namespace TestScriptGeneratorTool.Application
                 
                 // Ensure API key is trimmed (no spaces)
                 var apiKey = _aiSettings.ApiKey?.Trim();
-                _logger.LogInformation($"API Key set: {!string.IsNullOrEmpty(apiKey)}, Key length: {apiKey?.Length ?? 0}");
+                var keyInfo = string.IsNullOrEmpty(apiKey) 
+                    ? "NOT SET" 
+                    : $"present (length: {apiKey.Length}, starts with: {apiKey.Substring(0, Math.Min(10, apiKey.Length))}...)";
+                _logger.LogInformation($"API Key: {keyInfo}");
                 _logger.LogInformation($"BaseUrl: {_aiSettings.BaseUrl}");
                 _logger.LogInformation($"Model: {_aiSettings.Model}");
                 

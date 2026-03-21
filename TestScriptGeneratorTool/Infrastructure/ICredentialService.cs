@@ -152,9 +152,11 @@ namespace TestScriptGeneratorTool.Infrastructure
                 var bytes = Convert.FromBase64String(encrypted);
                 return System.Text.Encoding.UTF8.GetString(bytes);
             }
-            catch
+            catch (Exception ex)
             {
-                return encrypted;
+                // Don't return the Base64 string - it corrupts the value
+                // Instead, throw an exception so the issue is caught immediately
+                throw new InvalidOperationException($"Failed to decrypt credential - data may be corrupted", ex);
             }
         }
     }
